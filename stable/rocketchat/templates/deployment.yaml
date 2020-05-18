@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: {{ template "rocketchat.fullname" . }}
   labels:
+    app: {{ template "rocketchat.fullname" . }}
     app.kubernetes.io/name: {{ include "rocketchat.name" . }}
     helm.sh/chart: {{ include "rocketchat.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
@@ -73,6 +74,9 @@ spec:
               key: mail-url
         {{- end }}
 {{- with .Values.extraEnv }}
+{{ tpl . $ | indent 8 }}
+{{- end }}
+{{- with .Values.rcCustomization }}
 {{ tpl . $ | indent 8 }}
 {{- end }}
         ports:
