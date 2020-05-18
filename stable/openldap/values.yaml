@@ -18,9 +18,9 @@ strategy: {}
   # rollingUpdate: null
 image:
   # From repository https://github.com/osixia/docker-openldap
-  repository: osixia/openldap
-  tag: 1.2.4
-  pullPolicy: IfNotPresent
+  repository: cipcore/openldap
+  tag: test
+  pullPolicy: Always
 
 # Spcifies an existing secret to be used for admin and config user passwords
 existingSecret: ""
@@ -40,8 +40,8 @@ service:
   annotations: {}
   clusterIP: ""
 
-  ldapPort: 389
-  sslLdapPort: 636  # Only used if tls.enabled is true
+  ldapPort: 8389
+  sslLdapPort: 8636  # Only used if tls.enabled is true
   ## List of IP addresses at which the service is available
   ## Ref: https://kubernetes.io/docs/user-guide/services/#external-ips
   ##
@@ -60,6 +60,8 @@ env:
   LDAP_TLS: "true"
   LDAP_TLS_ENFORCE: "false"
   LDAP_REMOVE_CONFIG_AFTER_SETUP: "true"
+  LDAP_PORT: "8389"
+  LDAPS_PORT: "8636"
 
 # Default Passwords to use, stored as a secret. If unset, passwords are auto-generated.
 # You can override these at install time with
